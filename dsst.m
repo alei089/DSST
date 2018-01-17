@@ -119,7 +119,8 @@ for frame = 1:num_frames,
             currentScaleFactor = max_scale_factor;
         end
     end
-    
+    % when frame>1, below performs online update given translation and
+    % scale responses
     % extract the training sample feature map for the translation filter
     xl = get_translation_sample(im, pos, sz, currentScaleFactor, cos_window);
     
@@ -165,7 +166,7 @@ for frame = 1:num_frames,
     if visualization == 1
         rect_position = [pos([2,1]) - target_sz([2,1])/2, target_sz([2,1])];
         if frame == 1,  %first frame, create GUI
-            figure('Number','off', 'Name',['Tracker - ' video_path]);
+            figure('NumberTitle','off', 'Name',['Tracker - ' video_path]);
             im_handle = imshow(uint8(im), 'Border','tight', 'InitialMag', 100 + 100 * (length(im) < 500));
             rect_handle = rectangle('Position',rect_position, 'EdgeColor','g');
             text_handle = text(10, 10, int2str(frame));
